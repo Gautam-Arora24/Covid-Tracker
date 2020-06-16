@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Corona Tracker</title>
+    <!-- BOOTSTRAP CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="./styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0">
+    </script>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <a class="navbar-brand" href="#"><i class="fa fa-bug mx-2" aria-hidden="true"></i>Corona Tracker</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active  ">
+                    <a class="nav-link" href="#overview">Overview <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#Chart2">States</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#feedback">Feedback</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="jumbotron text-center jumbotron-fluid mb-5" id="overview">
+        <h1 class="display-4"> India Overview</h1>
+        <h2 class="totalCases red-color"></h2>
+        <p>Confirmed</p>
+        <hr class="my-4">
+        <h2 class="recoveredCases green-color"></h2>
+        <p>Recovered</p>
+    </div>
+
+    <h1 class="text-center mb-5">Cases In India</h1>
+    <canvas id="Chart1" width="400" height="100" class="mb-5"></canvas>
+    <h1 class="text-center mb-5">State Wise Cases</h1>
+    <canvas id="Chart2" width="600" height="400"></canvas>
+
+    <!-- CONTACT AND FEEDBACK FORM -->
+    <h1 class="text-center" id="feedback">Feedback Form</h1>
+    <form action="/sendmail" method="POST" class="text-center container">
+        <div class="form-group">
+
+            <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Your Email">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <input type="text" name="message" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Your Message">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <script src="script.js" type="text/javascript"></script>
+    <script src="https://use.fontawesome.com/9c905beacf.js"></script>
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</body>
+<script>
+    var url =
+        "https://api.apify.com/v2/key-value-stores/toDWvRj1JpTXiM8FF/records/LATEST?disableRedirect=true ";
+
+    fetch(url)
+        .then((res) => {
+            return res.json();
+        })
+        .then((data) => {
+            return chartIt(data)
+        });
+
+
+    // CHART WORK
+    // PIE CHART
+    function chartIt(data) {
+        var ctx = document.getElementById('Chart1').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                datasets: [{
+                    data: [data.activeCases, data.recovered, data.deaths],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(54, 162, 235, 0.8)',
+                        'rgba(255, 206, 86, 0.8)'
+                    ]
+                }],
+                labels: [
+                    'Active Cases',
+                    'Recovered Cases',
+                    'Deaths'
+                ]
+            }
+        })
+
+        // BAR CHART FOR ALL STATES
+        var ctx = document.getElementById('Chart2').getContext('2d');
+        var lineChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: regions(data),
+                datasets: [{
+                    label: "State Wise Cases",
+
+                    data: casesInIndia(data)
+                }]
+            }
+
+        });
+
+        var totalCase = document.querySelector(".totalCases")
+        if (totalCase) {
+            totalCase.textContent = data.totalCases
+        }
+        var recoveredCases = document.querySelector(".recoveredCases")
+        if (recoveredCases) {
+            recoveredCases.textContent = data.recovered
+        }
+
+        // ALL NECESSARY FUNCTIONS
+        function casesInIndia(data) {
+            var cases = [];
+            for (let i = 0; i < 36; i++) {
+                cases.push(data.regionData[i].totalCases)
+            }
+            return cases;
+        }
+
+        function regions(data) {
+            var region = []
+            for (let i = 0; i < 36; i++) {
+                region.push(data.regionData[i].region)
+            }
+            return region
+        }
+    }
+</script>
+
+</html>
