@@ -8,6 +8,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static("public"));
 
+var port = process.env.PORT || 8000;
+
 app.get("/", function(req, res) {
     res.sendFile("index.html", { root: __dirname });
 });
@@ -21,8 +23,8 @@ let transporter = nodemailer.createTransport({
 
 app.post("/sendmail", function(req, res) {
     let mailOptions = {
-        from: "gautamarora6248@gmail.com",
-        to: req.body.email,
+        from: req.body.email,
+        to: "gautamarora6248@gmail.com",
         text: req.body.message,
     };
 
@@ -36,6 +38,6 @@ app.post("/sendmail", function(req, res) {
     res.redirect("/");
 });
 
-app.listen(8000, function(req, res) {
+app.listen(port, function(req, res) {
     console.log("Server has been started in port 8000");
 });
