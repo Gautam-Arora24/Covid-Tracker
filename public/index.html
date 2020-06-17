@@ -37,29 +37,34 @@
         <hr class="my-4">
         <h2 class="recoveredCases green-color"></h2>
         <p>Recovered</p>
+        <hr class="my-4">
+        <h2 class="deaths grey"></h2>
+        <p>Deaths</p>
     </div>
 
     <h1 class="text-center mb-5 white">Cases In India</h1>
     <div class="chart-container" style="position: relative; height:40vh; width:80vw">
         <canvas id="Chart1" width="400" height="100" class="mb-5"></canvas>
     </div>
-    <h1 class="text-center my-5 white ">State Wise Cases</h1>
-    <table class="table table-bordered" id="states">
-        <thead>
-            <tr class="white ">
-                <th>State/Region</th>
-                <th>Total Cases</th>
-                <th>Deaths</th>
-            </tr>
-        </thead>
-        <tbody id="case" class="white">
-        </tbody>
-    </table>
+    <div id="states">
+        <h1 class="text-center my-5 white " id="states">State Wise Cases</h1>
+        <table class="table table-bordered">
+            <thead>
+                <tr class="white ">
+                    <th>State/Region</th>
+                    <th>Total Cases</th>
+                    <th>Deaths</th>
+                </tr>
+            </thead>
+            <tbody id="case" class="white">
+            </tbody>
+        </table>
+    </div>
 
     <section class="footer">
         <div class="container">
             <p class="inline cr">copyright &copy; Gautam Arora 2020</p>
-            <p class="inline me"><a href="https://jaspcovid.herokuapp.com/" target="_blank">https://jaspcovid.herokuapp.com/</a></p>
+            <p class="inline me"><i class="fa fa-envelope-o pr-3" aria-hidden="true"></i>gautamarora6248@gmail.com</p>
             <div class="inline images">
                 <a href="https://www.instagram.com/gautamarora6248/?hl=en" target="_blank"><i class="fa fa-instagram fa-2x px-3" aria-hidden="true"></i></a>
                 <a href="https://www.linkedin.com/in/gautam-arora-b2788b191/" target="_blank"><i class="fa fa-linkedin fa-2x px-3" aria-hidden="true"></i></a>
@@ -143,6 +148,10 @@
         var recoveredCases = document.querySelector(".recoveredCases")
         if (recoveredCases) {
             recoveredCases.textContent = data.recovered
+        }
+        var deaths = document.querySelector(".deaths")
+        if (deaths) {
+            deaths.textContent = data.deaths
         }
 
         // ALL NECESSARY FUNCTIONS
