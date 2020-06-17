@@ -1,7 +1,30 @@
+body {
+    background: #1d1f20;
+}
+
 .jumbotron .red-color {
     color: #e92e4d;
 }
 
 .green-color {
     color: #14b64d;
+}
+
+.chart-container {
+    position: relative;
+    margin: auto;
+    height: 80vh;
+    width: 80vw;
+}
+
+.white {
+    color: white;
+}
+
+.black {
+    color: #1d1f20;
+}
+
+.grey {
+    color: grey;
 }
