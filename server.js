@@ -13,7 +13,7 @@ var port = process.env.PORT || 8000;
 app.get("/", function(req, res) {
     res.sendFile("index.html", { root: __dirname });
 });
-// let transporter = nodemailer.createTransport({
+// ``let transporter = nodemailer.createTransport({
 //     service: "gmail",
 //     auth: {
 //         user: process.env.EMAIL,
@@ -36,7 +36,7 @@ app.get("/", function(req, res) {
 //         }
 //     });
 //     res.redirect("/");
-// });
+// });``
 
 app.listen(port, function(req, res) {
     console.log("Server has been started in port 8000");
