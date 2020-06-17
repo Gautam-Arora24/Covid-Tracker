@@ -28,3 +28,53 @@ body {
 .grey {
     color: grey;
 }
+
+ul li {
+    list-style-type: none;
+    display: inline-block;
+}
+
+footer {
+    background-color: grey;
+}
+
+footer h3 {
+    font-size: 20px;
+}
+
+.footer .container {
+    padding: 40px;
+    text-align: center;
+}
+
+.footer {
+    background-color: #d7dedc;
+}
+
+.inline {
+    display: inline-block;
+    font-size: 15px;
+    vertical-align: middle;
+}
+
+.inline a {
+    text-decoration: none;
+    color: black;
+}
+
+.cr,
+.me {
+    margin-right: 40px;
+}
+
+.fb,
+.tw {
+    margin-right: 40px;
+}
+
+.cr:after,
+.me:after {
+    content: "";
+    border: 1px solid #555555;
+    margin-left: 35px;
+}
