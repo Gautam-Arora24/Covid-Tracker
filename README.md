@@ -19,6 +19,7 @@
     <a href="https://github.com/Gautam-Arora24/Covid-Tracker/issues">Report Bug</a>
     ·
     <a href="https://github.com/Gautam-Arora24/Covid-Tracker/issues">Request Feature</a>
+    .
     <a href="https://jaspcovid.herokuapp.com/">Try it </a>
 
     </div>
