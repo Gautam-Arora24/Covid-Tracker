@@ -12,7 +12,7 @@
  Track Covid Cases
   </h4>
   <p>
-   this Corona Tracker website which displays the current corona cases all over India. The website is responsive which means it can be viewed on any device.
+   This Corona Tracker website which displays the current corona cases all over India. The website is responsive which means it can be viewed on any device.
 
   </p>
     .
