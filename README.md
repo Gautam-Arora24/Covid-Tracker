@@ -22,8 +22,6 @@
     .
     <a href="https://jaspcovid.herokuapp.com/">Try it </a>
 
-    </div>
-
 </p>
 
 <!-- ABOUT THE PROJECT -->
